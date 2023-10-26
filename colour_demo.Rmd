@@ -1,0 +1,46 @@
+---
+title: "Colour functionality demonstration"
+author: "Lea Schiller"
+date: "2023-10-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+
+## Colour functionality of the length_terms function
+
+To better distinguish the party affiliantions of US presidents, the functionality "colour" was added. This makes it possible to additionally generate another column that records the colour associated with the party of the president.
+
+If the value for colours is set to TRUE, the function will append this additional column to the data frame:
+
+```{r, echo=FALSE}
+length_terms <- function(data, colours = FALSE) {
+  president_terms <- data
+  # Adding term_length column showing the time difference 
+  # between the start and end of term:
+  president_terms$term_length <- data$end - data$start
+  if (colours == TRUE) {
+    # Adding column "party_colors" with Red for Republican and Blue for Democrats
+    president_terms$party_colours <- ifelse(president_terms$party == "Republican", "Red", "Blue")
+  }
+  return(president_terms)
+}
+```
+
+```{r}
+library("ggplot2") # The example dataset is from the ggplot2 package
+print(length_terms(presidential, colours = TRUE))
+```
+
+If the value for colours is set to FALSE, the function will print the same data frame as it did before the colour functionality was added:
+
+```{r}
+print(length_terms(presidential, colours = FALSE))
+```
+## Appendix: Changed code of the function
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+
+```
